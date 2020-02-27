@@ -25,3 +25,11 @@ if not cursor.fetchall():
         cursor.execute(sql)
     except Exception as e:
         print('Error: ' + str(e))
+
+try:
+    sql = 'INSERT INTO %s VALUES (?, ?, ?, ?, ?);' % (table_name)
+    cursor.execute(sql, ['Top Song', 'Famouse artist', '27/02/2020', "undeground label 1'23", 'x-type'])
+    conn.commit()
+    conn.close()
+except Exception as e:
+    print('Error: ' + str(e))
