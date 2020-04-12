@@ -44,3 +44,29 @@ class YaDiskSmart(YaDisk):
 
             except Exception as e:
                 self.mkdir(path)
+
+    # Create subfolders if dst contains not exsisted subfolders
+    def smart_upload(self, src: str, dst: str):
+        try:
+            self.upload(src, dst)
+        except Exception as e:
+            # If conflict
+            if int(str(e).split('.')[0]) != 409:
+                raise e
+            
+            folders = []
+            if dst.split('/'):
+                folders = dst.split('/')
+            elif dst.split('\\'):
+                folders = dst.split('\\')
+
+            folders = list(filter(None, folders))[:-1]
+
+            dst_dir = ''
+            for folder in folders:
+                dst_dir += f'{folder}/'
+
+            dst_dir = dst_dir[:-1]
+
+            self.mkdirs_from_path(dst_dir)
+            self.upload(src, dst)
