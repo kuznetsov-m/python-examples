@@ -73,3 +73,28 @@ utc = utc.replace(tzinfo=from_zone)
 central = utc.astimezone(to_zone)
 
 # https://www.programiz.com/python-programming/datetime/strftime
+
+from datetime import datetime
+
+dt = datetime(2021, 1, 1, 0, 0, 0)
+print(dt)
+
+###############################################################################
+
+# ----------------------------------------
+# astimezone()
+# Return a datetime object with new tzinfo attribute tz,
+# adjusting the date and time data so the result is the same UTC time as self,
+# but in tz’s local time.
+from dateutil import tz
+utc_dt = dt.astimezone(tz=tz.UTC)
+# as system tz
+local_dt = dt.astimezone()
+print(dt, utc_dt, local_dt)
+
+# ----------------------------------------
+# replace()
+import pytz
+msc_tz = pytz.timezone('Europe/Moscow')
+msc_dt = dt.replace(tzinfo=msc_tz)
+print(dt, msc_dt)
