@@ -92,9 +92,13 @@ utc_dt = dt.astimezone(tz=tz.UTC)
 local_dt = dt.astimezone()
 print(dt, utc_dt, local_dt)
 
+# get system local tzinfo
+tzinfo = datetime.now().astimezone().tzinfo
+
 # ----------------------------------------
 # replace()
 import pytz
 msc_tz = pytz.timezone('Europe/Moscow')
 msc_dt = dt.replace(tzinfo=msc_tz)
 print(dt, msc_dt)
+
